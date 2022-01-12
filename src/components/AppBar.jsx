@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text, Pressable } from 'react-native';
-import Constants from 'expo-constants';
+ 
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: Constants.statusBarHeight,
+        // paddingVertical: Constants.statusBarHeight,
         backgroundColor: "#24292e",
         height: 100,
         alignItems: "flex-end",
@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     tabStyle: {
         fontSize: 18,
         fontWeight: "bold",
-        color: "white"
+        color: "white",
+        paddingBottom: 20
     }
     // ...
 });
