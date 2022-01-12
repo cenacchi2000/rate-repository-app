@@ -1,9 +1,8 @@
-import React from 'react';
-
-import Main from './src/components/Main';
+import React from 'react'; 
+import RepositoryList from './src/components/RepositoryList';
 
 const App = () => {
-  return <Main />;
+  return <RepositoryList />;
 };
 
 export default App;
