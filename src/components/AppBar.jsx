@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
- 
+import { View, StyleSheet, Text, Pressable, ScrollView } from 'react-native';
+
 
 const styles = StyleSheet.create({
     container: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         height: 100,
         alignItems: "flex-end",
         paddingHorizontal: 20,
-        flexDirection:"row"
+        flexDirection: "row"
         // ...
     },
     tabStyle: {
@@ -23,9 +23,14 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
     return <View style={styles.container}>
-        <Pressable style={{ }} >
-            <Text style={styles.tabStyle} >Respositories</Text>
-        </Pressable>
+        <ScrollView horizontal={true} >
+            <Pressable style={{}} >
+                <Text style={styles.tabStyle} >Respositories</Text>
+            </Pressable>
+            <Pressable style={{ marginHorizontal:10}} >
+                <Text style={styles.tabStyle} >Sign in</Text>
+            </Pressable>
+        </ScrollView>
     </View>;
 };
 
