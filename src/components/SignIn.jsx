@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Platform, Pressable, StyleSheet,  TextInput, View } from 'react-native'; 
+import MyText from '../Text';
 
 export default function SignIn() {
   const [userName, setUserName] = useState("");
@@ -21,7 +22,7 @@ export default function SignIn() {
       </View>
       {
         userNameBorderColor &&
-        <Text style={{ color: userNameBorderColor ? "#d73a4a" : "#CCCCCC", marginTop: 5 }} >Username is required</Text>
+        <MyText style={{ color: userNameBorderColor ? "#d73a4a" : "#CCCCCC", marginTop: 5 }} >Username is required</MyText>
       }
 
       <View style={[styles.textInputStyle, { borderColor: passwordBorderColor ? "#d73a4a" : "#CCCCCC" }]} >
@@ -29,11 +30,11 @@ export default function SignIn() {
       </View>
       {
         passwordBorderColor &&
-        <Text style={{ color: passwordBorderColor ? "#d73a4a" : "#CCCCCC", marginTop: 5 }} >Password is required</Text>
+        <MyText style={{ color: passwordBorderColor ? "#d73a4a" : "#CCCCCC", marginTop: 5 }} >Password is required</MyText>
       }
 
       <Pressable onPress={() => onsubmit()} style={styles.buttonStyle} >
-        <Text style={{ color: "white", fontSize: 18 }}>Sign in</Text>
+        <MyText style={{ color: "white", fontSize: 18, fontFamily: "Arial" }}>Sign in</MyText>
       </Pressable>
 
 

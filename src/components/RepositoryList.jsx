@@ -5,7 +5,7 @@ import Repositoryitem from './RepositoryItem';
 const styles = StyleSheet.create({
     separator: {
         height: 10,
-        backgroundColor:"#CCCCCC"
+        backgroundColor: "#CCCCCC"
     },
 });
 
@@ -55,7 +55,11 @@ const repositories = [
         ownerAvatarUrl: 'https://avatars3.githubusercontent.com/u/13142323?v=4',
     },
 ];
-
+// const fetchRepositories = async () => {
+//     const response = await fetch("http://192.168.18.49:8081/api/repositories");
+//     const json = response.json();
+//     console.log(json,"json");
+// }; 
 const ItemSeparator = () => <View style={styles.separator} />;
 const _renderList = ({ item, index }) => {
     return (

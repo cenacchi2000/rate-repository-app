@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet,   View } from 'react-native';
+import MyText from '../Text';
 import theme from '../theme';
 const Repositoryitem = (props) => {
     const intToString = (num) => {
@@ -28,31 +29,31 @@ const Repositoryitem = (props) => {
             <View style={{ flexDirection: "row" }} >
                 <Image style={{ width: 50, height: 50, borderRadius: 4 }} source={{ uri: props.item.ownerAvatarUrl }} />
                 <View style={{ marginLeft: 20 }} >
-                    <Text style={{ fontSize: 18, fontWeight: "bold", color: theme.colors.textPrimary }} >{props.item.fullName}</Text>
-                    <Text style={{ fontSize: 16, color: theme.colors.textSecondary, marginVertical: 5 }} >{props.item.description}</Text>
+                    <MyText style={{ fontSize: 18, fontWeight: "bold", color: theme.colors.textPrimary }} >{props.item.fullName}</MyText>
+                    <MyText style={{ fontSize: 16, color: theme.colors.textSecondary, marginVertical: 5 }} >{props.item.description}</MyText>
                     <View style={{ flexDirection: "row" }} >
                         <View style={{ backgroundColor: "#0366d6", padding: 5, borderRadius: 4 }} >
-                            <Text style={{ color: "white" }} >{props.item.language}</Text>
+                            <MyText style={{ color: "white" }} >{props.item.language}</MyText>
                         </View>
                     </View>
                 </View>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", marginTop: 10 }} >
                 <View style={{ alignItems: "center" }} >
-                    <Text style={styles.upText} >{intToString(props.item.stargazersCount)}</Text>
-                    <Text style={styles.bottomText} >Stars</Text>
+                    <MyText style={styles.upText} >{intToString(props.item.stargazersCount)}</MyText>
+                    <MyText style={styles.bottomText} >Stars</MyText>
                 </View>
                 <View style={{ alignItems: "center" }} >
-                    <Text style={styles.upText}>{intToString(props.item.forksCount)}</Text>
-                    <Text style={styles.bottomText}>Forks</Text>
+                    <MyText style={styles.upText}>{intToString(props.item.forksCount)}</MyText>
+                    <MyText style={styles.bottomText}>Forks</MyText>
                 </View>
                 <View style={{ alignItems: "center" }} >
-                    <Text style={styles.upText}>{props.item.reviewCount}</Text>
-                    <Text style={styles.bottomText}>Reviews</Text>
+                    <MyText style={styles.upText}>{props.item.reviewCount}</MyText>
+                    <MyText style={styles.bottomText}>Reviews</MyText>
                 </View>
                 <View style={{ alignItems: "center" }} >
-                    <Text style={styles.upText}>{props.item.ratingAverage}</Text>
-                    <Text style={styles.bottomText}>Rating</Text>
+                    <MyText style={styles.upText}>{props.item.ratingAverage}</MyText>
+                    <MyText style={styles.bottomText}>Rating</MyText>
                 </View>
             </View>
         </View>

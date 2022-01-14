@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Text, Pressable, ScrollView } from 'react-native';
+import { View, StyleSheet, Pressable, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
+import MyText from '../Text';
 
 
 const styles = StyleSheet.create({
@@ -26,13 +27,10 @@ const AppBar = () => {
     return <View style={styles.container}>
         <ScrollView horizontal={true} >
             <Pressable style={{}} >
-                <Text style={styles.tabStyle} >Respositories</Text>
+                <MyText style={styles.tabStyle} >Respositories</MyText>
             </Pressable>
             <Link style={{ marginHorizontal: 10 }} to={'/SignIn'}>
-
-                <Text style={styles.tabStyle} >Sign in</Text>
-
-
+                <MyText style={styles.tabStyle} >Sign in</MyText>
             </Link>
         </ScrollView>
     </View>;
