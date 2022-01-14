@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, Pressable, ScrollView } from 'react-native';
+import { Link } from 'react-router-native';
 
 
 const styles = StyleSheet.create({
@@ -27,9 +28,12 @@ const AppBar = () => {
             <Pressable style={{}} >
                 <Text style={styles.tabStyle} >Respositories</Text>
             </Pressable>
-            <Pressable style={{ marginHorizontal:10}} >
+            <Link style={{ marginHorizontal: 10 }} to={'/SignIn'}>
+
                 <Text style={styles.tabStyle} >Sign in</Text>
-            </Pressable>
+
+
+            </Link>
         </ScrollView>
     </View>;
 };
