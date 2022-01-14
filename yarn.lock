@@ -3724,6 +3724,11 @@
   dependencies:
     "is-obj" "^2.0.0"
 
+"dotenv@^11.0.0":
+  "integrity" "sha512-Fp/b504Y5W+e+FpCxTFMUZ7ZEQkQYF0rx+KZtmwixJxGQbLHrhCwo3FjZgNC8vIfrSi29PABNbMoCGD9YoiXbQ=="
+  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-11.0.0.tgz"
+  "version" "11.0.0"
+
 "duplexer@^0.1.1":
   "integrity" "sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg=="
   "resolved" "https://registry.npmjs.org/duplexer/-/duplexer-0.1.2.tgz"

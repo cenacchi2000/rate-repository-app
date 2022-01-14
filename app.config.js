@@ -1,6 +1,8 @@
-{
+import 'dotenv/config';
+export default {
   "expo": {
     "name": "rate-repository",
+    extra: { env: process.env.ENV, },
     "slug": "rate-repository",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -29,4 +31,4 @@
       "favicon": "./assets/favicon.png"
     }
   }
-}
+};
