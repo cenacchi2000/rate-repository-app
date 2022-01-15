@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
-import { Platform, Pressable, StyleSheet,  TextInput, View } from 'react-native'; 
+import { Platform, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import MyText from '../Text';
-
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../graphql/mutations';
 export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [userNameBorderColor, setUserNameBorderColor] = useState(null);
   const [password, setPassword] = useState("");
   const [passwordBorderColor, setPasswordBorderColor] = useState(null);
+  const [createUser] = useMutation(CREATE_USER);
   const onsubmit = () => {
     if (!userName) {
       setUserNameBorderColor(true);
     }
     else if (!password) {
       setPasswordBorderColor(true);
+    }
+    else {
+
+      createUser({ variables: { username: userName, password: password } })
+        .then(res => console.log(JSON.stringify(res.data.createUser)))
+        .catch(error => console.log(error.message));
     }
   };
   return (
@@ -26,7 +34,7 @@ export default function SignIn() {
       }
 
       <View style={[styles.textInputStyle, { borderColor: passwordBorderColor ? "#d73a4a" : "#CCCCCC" }]} >
-        <TextInput value={password} onChangeText={e => { setPassword(e); setPasswordBorderColor(null); }} style={styles.textStyle} placeholder='Password' />
+        <TextInput autoCapitalize={"none"} value={password} onChangeText={e => { setPassword(e); setPasswordBorderColor(null); }} style={styles.textStyle} placeholder='Password' />
       </View>
       {
         passwordBorderColor &&
