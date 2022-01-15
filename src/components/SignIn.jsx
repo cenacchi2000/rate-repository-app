@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Platform, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import MyText from '../Text';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../graphql/mutations';
+import { AUTHORIZE_TOKEN, CREATE_USER } from '../graphql/mutations';
+import useAuthStorage from '../utils/useAuthStorage';
 export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [userNameBorderColor, setUserNameBorderColor] = useState(null);
   const [password, setPassword] = useState("");
   const [passwordBorderColor, setPasswordBorderColor] = useState(null);
   const [createUser] = useMutation(CREATE_USER);
+  const [getAuthorizeToken] = useMutation(AUTHORIZE_TOKEN);
   const onsubmit = () => {
     if (!userName) {
       setUserNameBorderColor(true);
@@ -17,9 +19,19 @@ export default function SignIn() {
       setPasswordBorderColor(true);
     }
     else {
-
       createUser({ variables: { username: userName, password: password } })
-        .then(res => console.log(JSON.stringify(res.data.createUser)))
+        .then(res => {
+          if (res.data.createUser) {
+            getAuthorizeToken({ variables: { username: userName, password: password } })
+              .then(async (authRes) => {
+                const authStorage = useAuthStorage();
+                authStorage.setAccessToken(authRes.data.authorize.accessToken);
+
+
+              })
+              .catch(authError => console.log(authError.message));
+          }
+        })
         .catch(error => console.log(error.message));
     }
   };
