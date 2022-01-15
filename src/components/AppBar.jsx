@@ -4,8 +4,9 @@ import { Link } from 'react-router-native';
 import MyText from '../Text';
 import useAuthStorage from '../utils/useAuthStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient, useQuery } from '@apollo/client';
 import AuthStorage from '../utils/authStorage';
+import { AUTHORIZED_USER } from '../graphql/queries';
 
 
 
@@ -29,14 +30,18 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => { 
+    let {data, loading, error} =  useQuery(AUTHORIZED_USER);
     const client = useApolloClient();
     const [token, setToken] = useState(null);
     const authStorage = useAuthStorage();
     const getAccess = async () => {
+      
+        console.log(data, "resssssss")
         let res = await authStorage.getAccessToken();
         setToken(res);
     };
     useEffect(() => {
+      
         getAccess(); 
     }, [authStorage.getAccessToken()]);
 
