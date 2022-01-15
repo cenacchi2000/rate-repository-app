@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { Platform, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import MyText from '../Text';
-import { useMutation } from '@apollo/client';
+import { ApolloClient, useApolloClient, useMutation } from '@apollo/client';
 import { AUTHORIZE_TOKEN, CREATE_USER } from '../graphql/mutations';
 import useAuthStorage from '../utils/useAuthStorage';
+import { useHistory } from 'react-router-native';
 export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [userNameBorderColor, setUserNameBorderColor] = useState(null);
   const [password, setPassword] = useState("");
   const [passwordBorderColor, setPasswordBorderColor] = useState(null);
-  const [createUser] = useMutation(CREATE_USER);
+  // const [createUser] = useMutation(CREATE_USER);
   const [getAuthorizeToken] = useMutation(AUTHORIZE_TOKEN);
+  const authStorage = useAuthStorage();
+  const client = useApolloClient();
+  let history = useHistory();
   const onsubmit = () => {
     if (!userName) {
       setUserNameBorderColor(true);
@@ -19,20 +23,28 @@ export default function SignIn() {
       setPasswordBorderColor(true);
     }
     else {
-      createUser({ variables: { username: userName, password: password } })
-        .then(res => {
-          if (res.data.createUser) {
-            getAuthorizeToken({ variables: { username: userName, password: password } })
-              .then(async (authRes) => {
-                const authStorage = useAuthStorage();
-                authStorage.setAccessToken(authRes.data.authorize.accessToken);
+      getAuthorizeToken({ variables: { username: userName, password: password } })
+        .then(async (authRes) => { 
+          authStorage.setAccessToken(authRes.data.authorize.accessToken);
+          client.resetStore();
+          history.push("/");
 
-
-              })
-              .catch(authError => console.log(authError.message));
-          }
         })
-        .catch(error => console.log(error.message));
+        .catch(authError => console.log(authError.message));
+      // createUser({ variables: { username: userName, password: password } })
+      //   .then(res => {
+      //     if (res.data.createUser) {
+      //       getAuthorizeToken({ variables: { username: userName, password: password } })
+      //         .then(async (authRes) => {
+      //           const authStorage = useAuthStorage();
+      //           authStorage.setAccessToken(authRes.data.authorize.accessToken);
+      //           ApolloClient.resetStore();
+
+      //         })
+      //         .catch(authError => console.log(authError.message));
+      //     }
+      //   })
+      //   .catch(error => console.log(error.message));
     }
   };
   return (
