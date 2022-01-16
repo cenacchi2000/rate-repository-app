@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useApolloClient, useQuery } from '@apollo/client';
 import AuthStorage from '../utils/authStorage';
 import { AUTHORIZED_USER } from '../graphql/queries';
+import { useHistory } from 'react-router-native';
 
 
 
@@ -34,6 +35,7 @@ const AppBar = () => {
     const client = useApolloClient();
     const [token, setToken] = useState(null);
     const authStorage = useAuthStorage();
+    const history = useHistory();
     const getAccess = async () => {
 
         // console.log(data, "resssssss")
@@ -48,6 +50,7 @@ const AppBar = () => {
     const signOut = () => {
         AsyncStorage.clear();
         client.resetStore();
+        history.push("/");
     };
     return (
         <View style={styles.container}>
@@ -55,9 +58,15 @@ const AppBar = () => {
                 <Link to={'/'} style={{}} >
                     <MyText style={styles.tabStyle} >Respositories</MyText>
                 </Link>
-                <Link  to={"/CreateReview"} style={{ marginHorizontal: 10 }} >
-                    <MyText style={styles.tabStyle} >Create a review</MyText>
-                </Link>
+                {
+                    token ?
+                        <Link to={"/CreateReview"} style={{ marginHorizontal: 10 }} >
+                            <MyText style={styles.tabStyle} >Create a review</MyText>
+                        </Link>
+                        :
+                        null
+                }
+
                 {
                     token ?
                         <Pressable onPress={() => signOut()} style={{ marginHorizontal: 10 }} >
@@ -68,6 +77,15 @@ const AppBar = () => {
                             <MyText style={styles.tabStyle} >Sign in</MyText>
                         </Link>
                 }
+                {
+                    !token ?
+                        <Link style={{ marginHorizontal: 10 }} to={'/SignUp'}>
+                            <MyText style={styles.tabStyle} >Sign up</MyText>
+                        </Link>
+                        :
+                        null
+                }
+
 
             </ScrollView>
         </View>
