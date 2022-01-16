@@ -29,20 +29,20 @@ const styles = StyleSheet.create({
     // ...
 });
 
-const AppBar = () => { 
-    let {data, loading, error} =  useQuery(AUTHORIZED_USER);
+const AppBar = () => {
+    let { data, loading, error } = useQuery(AUTHORIZED_USER);
     const client = useApolloClient();
     const [token, setToken] = useState(null);
     const authStorage = useAuthStorage();
     const getAccess = async () => {
-      
-        console.log(data, "resssssss")
+
+        // console.log(data, "resssssss")
         let res = await authStorage.getAccessToken();
         setToken(res);
     };
     useEffect(() => {
-      
-        getAccess(); 
+
+        getAccess();
     }, [authStorage.getAccessToken()]);
 
     const signOut = () => {
@@ -54,6 +54,9 @@ const AppBar = () => {
             <ScrollView horizontal={true} >
                 <Link to={'/'} style={{}} >
                     <MyText style={styles.tabStyle} >Respositories</MyText>
+                </Link>
+                <Link  to={"/CreateReview"} style={{ marginHorizontal: 10 }} >
+                    <MyText style={styles.tabStyle} >Create a review</MyText>
                 </Link>
                 {
                     token ?

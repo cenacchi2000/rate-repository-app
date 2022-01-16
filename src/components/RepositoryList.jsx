@@ -21,15 +21,15 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 const _renderReviews = ({ item, index }) => {
     return (
-        <View key={index} style={{ width: "100%", flexDirection:"row", paddingHorizontal: 10, paddingVertical: 15}} >
+        <View key={index} style={{ width: "100%", flexDirection: "row", paddingHorizontal: 10, paddingVertical: 15 }} >
 
-            <View style={{width:50, height: 50, borderRadius: 50, borderWidth: 2, borderColor: theme.colors.primary, justifyContent:"center", alignItems:'center'}} >
-                <MyText style={{color: theme.colors.primary, fontWeight:"bold", fontSize: 18 }} >{item.node.rating}</MyText>
+            <View style={{ width: 50, height: 50, borderRadius: 50, borderWidth: 2, borderColor: theme.colors.primary, justifyContent: "center", alignItems: 'center' }} >
+                <MyText style={{ color: theme.colors.primary, fontWeight: "bold", fontSize: 18 }} >{item.node.rating}</MyText>
             </View>
-            <View style={{flex:1, paddingLeft: 10}} >
-                <MyText style={{fontWeight:"bold"}}>{item.node.user.username}</MyText>
-                <MyText style={{color:theme.colors.textSecondary, marginTop: 5}} >{moment(item.node.createdAt).format("DD.MM.YYYY")}</MyText>
-                <MyText style={{lineHeight: 20, marginTop: 10}} >{item.node.text}</MyText>
+            <View style={{ flex: 1, paddingLeft: 10 }} >
+                <MyText style={{ fontWeight: "bold" }}>{item.node.user.username}</MyText>
+                <MyText style={{ color: theme.colors.textSecondary, marginTop: 5 }} >{moment(item.node.createdAt).format("DD.MM.YYYY")}</MyText>
+                <MyText style={{ lineHeight: 20, marginTop: 10 }} >{item.node.text}</MyText>
             </View>
 
         </View>
@@ -39,24 +39,29 @@ const _renderReviews = ({ item, index }) => {
 const RepositoryList = () => {
     const { loading, error, data } = useQuery(GET_REPOSITORIES, {
         variables: { id: "jaredpalmer.formik" },
+        fetchPolicy: 'cache-and-network',
     });
-    
+
     if (loading) return null;
-  if (error) return `Error! ${error}`;
+    if (error) return `Error! ${error}`;
+    const _returnKey = (item, index) => {
+        return item + index;
+    };
     return (
         <View style={{ flex: 1, }} >
-         
-                <Repositoryitem
+
+            <Repositoryitem
                 item={data.repository}
             />
-            
-           
+
+
 
             <View style={styles.separator} />
             <FlatList
                 data={data.repository.reviews.edges}
                 ItemSeparatorComponent={ItemSeparator}
-                renderItem={_renderReviews} 
+                keyExtractor={_returnKey}
+                renderItem={_renderReviews}
             />
 
         </View>
