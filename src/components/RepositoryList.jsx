@@ -1,7 +1,12 @@
+import { useQuery } from '@apollo/client';
+import moment from 'moment';
 import React, { useEffect } from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, Text } from 'react-native';
+import { GET_REPOSITORIES } from '../graphql/queries';
+import useRepositories from '../hooks/useRepositories';
+import MyText from '../Text';
+import theme from '../theme';
 import Repositoryitem from './RepositoryItem';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
     separator: {
@@ -10,77 +15,52 @@ const styles = StyleSheet.create({
     },
 });
 
-const repositories = [
-    {
-        id: 'jaredpalmer.formik',
-        fullName: 'jaredpalmer/formik',
-        description: 'Build forms in React, without the tears',
-        language: 'TypeScript',
-        forksCount: 1589,
-        stargazersCount: 21553,
-        ratingAverage: 88,
-        reviewCount: 4,
-        ownerAvatarUrl: 'https://avatars2.githubusercontent.com/u/4060187?v=4',
-    },
-    {
-        id: 'rails.rails',
-        fullName: 'rails/rails',
-        description: 'Ruby on Rails',
-        language: 'Ruby',
-        forksCount: 18349,
-        stargazersCount: 45377,
-        ratingAverage: 100,
-        reviewCount: 2,
-        ownerAvatarUrl: 'https://avatars1.githubusercontent.com/u/4223?v=4',
-    },
-    {
-        id: 'django.django',
-        fullName: 'django/django',
-        description: 'The Web framework for perfectionists with deadlines.',
-        language: 'Python',
-        forksCount: 21015,
-        stargazersCount: 48496,
-        ratingAverage: 73,
-        reviewCount: 5,
-        ownerAvatarUrl: 'https://avatars2.githubusercontent.com/u/27804?v=4',
-    },
-    {
-        id: 'reduxjs.redux',
-        fullName: 'reduxjs/redux',
-        description: 'Predictable state container for JavaScript apps',
-        language: 'TypeScript',
-        forksCount: 13902,
-        stargazersCount: 52869,
-        ratingAverage: 0,
-        reviewCount: 0,
-        ownerAvatarUrl: 'https://avatars3.githubusercontent.com/u/13142323?v=4',
-    },
-];
-// const fetchRepositories = async () => {
-//     const response = await fetch("http://192.168.18.49:8081/api/repositories");
-//     const json = response.json();
-//     console.log(json,"json");
-// }; 
+
+
 
 const ItemSeparator = () => <View style={styles.separator} />;
-const _renderList = ({ item, index }) => {
+const _renderReviews = ({ item, index }) => {
     return (
-        <Repositoryitem
-            item={item}
-            index={index}
-        />
+        <View key={index} style={{ width: "100%", flexDirection:"row", paddingHorizontal: 10, paddingVertical: 15}} >
+
+            <View style={{width:50, height: 50, borderRadius: 50, borderWidth: 2, borderColor: theme.colors.primary, justifyContent:"center", alignItems:'center'}} >
+                <MyText style={{color: theme.colors.primary, fontWeight:"bold", fontSize: 18 }} >{item.node.rating}</MyText>
+            </View>
+            <View style={{flex:1, paddingLeft: 10}} >
+                <MyText style={{fontWeight:"bold"}}>{item.node.user.username}</MyText>
+                <MyText style={{color:theme.colors.textSecondary, marginTop: 5}} >{moment(item.node.createdAt).format("DD.MM.YYYY")}</MyText>
+                <MyText style={{lineHeight: 20, marginTop: 10}} >{item.node.text}</MyText>
+            </View>
+
+        </View>
     );
 };
 
 const RepositoryList = () => {
+    const { loading, error, data } = useQuery(GET_REPOSITORIES, {
+        variables: { id: "jaredpalmer.formik" },
+    });
     
+    if (loading) return null;
+  if (error) return `Error! ${error}`;
     return (
-        <FlatList
-            data={repositories}
-            ItemSeparatorComponent={ItemSeparator}
-            renderItem={_renderList}
-        // other props
-        />
+        <View style={{ flex: 1, }} >
+         
+                <Repositoryitem
+                item={data.repository}
+            />
+            
+           
+
+            <View style={styles.separator} />
+            <FlatList
+                data={data.repository.reviews.edges}
+                ItemSeparatorComponent={ItemSeparator}
+                renderItem={_renderReviews} 
+            />
+
+        </View>
+
     );
 };
 

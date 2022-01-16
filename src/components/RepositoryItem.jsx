@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, StyleSheet,   View } from 'react-native';
+import { Image, Pressable, StyleSheet,   View } from 'react-native';
 import MyText from '../Text';
 import theme from '../theme';
+import * as Linking from 'expo-linking';
 const Repositoryitem = (props) => {
     const intToString = (num) => {
         num = num.toString().replace(/[^0-9.]/g, '');
@@ -24,6 +25,7 @@ const Repositoryitem = (props) => {
         }
         return (num / si[index].v).toFixed(2).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + si[index].s;
     };
+    
     return (
         <View style={{padding: 10}} >
             <View style={{ flexDirection: "row" }} >
@@ -56,6 +58,9 @@ const Repositoryitem = (props) => {
                     <MyText style={styles.bottomText}>Rating</MyText>
                 </View>
             </View>
+            <Pressable onPress={() => Linking.openURL(props.item.url)} style={{backgroundColor: "#0366d6", height: 50, justifyContent:"center", alignItems:"center", borderRadius:4, marginTop: 20}} >
+                <MyText style={{ color: "white", fontWeight:"bold" }}>Open in GitHub</MyText>
+            </Pressable>
         </View>
     );
 };
