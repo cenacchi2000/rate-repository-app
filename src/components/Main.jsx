@@ -7,6 +7,7 @@ import theme from '../theme';
 import SignIn from './SignIn';
 import CreateReview from './CreateReview';
 import SignUp from './SignUp';
+import SingleRepositoryView from './SingleRepositoryView';
 
 const styles = StyleSheet.create({
     container: {
@@ -23,6 +24,9 @@ const Main = () => {
             <Switch>
                 <Route path="/" exact>
                     <RepositoryList />
+                </Route>
+                <Route path="/SingleRepositoryView" exact>
+                    <SingleRepositoryView />
                 </Route>
                 <Route path="/SignIn" exact>
                     <SignIn />

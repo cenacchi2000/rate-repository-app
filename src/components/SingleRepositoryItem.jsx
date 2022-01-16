@@ -3,9 +3,7 @@ import { Image, Pressable, StyleSheet,   View } from 'react-native';
 import MyText from '../Text';
 import theme from '../theme';
 import * as Linking from 'expo-linking';
-import { useHistory } from 'react-router-native';
-const Repositoryitem = (props) => {
-    const history = useHistory();
+const SingleRepositoryitem = (props) => {
     const intToString = (num) => {
         num = num.toString().replace(/[^0-9.]/g, '');
         if (num < 1000) {
@@ -29,7 +27,7 @@ const Repositoryitem = (props) => {
     };
     
     return (
-        <Pressable onPress={() =>  history.push("/SingleRepositoryView", {repoId: props.item.id})} style={{padding: 10}} >
+        <View style={{padding: 10}} >
             <View style={{ flexDirection: "row" }} >
                 <Image style={{ width: 50, height: 50, borderRadius: 4 }} source={{ uri: props.item.ownerAvatarUrl }} />
                 <View style={{ marginLeft: 20 }} >
@@ -60,8 +58,10 @@ const Repositoryitem = (props) => {
                     <MyText style={styles.bottomText}>Rating</MyText>
                 </View>
             </View>
-           
-        </Pressable>
+            <Pressable onPress={() => Linking.openURL(props.item.url)} style={{backgroundColor: "#0366d6", height: 50, justifyContent:"center", alignItems:"center", borderRadius:4, marginTop: 20}} >
+                <MyText style={{ color: "white", fontWeight:"bold" }}>Open in GitHub</MyText>
+            </Pressable>
+        </View>
     );
 };
 const styles = StyleSheet.create({
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Repositoryitem;
+export default SingleRepositoryitem;

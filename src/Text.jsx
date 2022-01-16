@@ -6,7 +6,7 @@ const MyText = (props) => {
 
 
     return (
-        <Text {...props} style={[{ fontFamily: "Arial", fontSize: 16,  }, { ...props.style }]}>
+        <Text {...props} style={[{   fontSize: 16,  }, { ...props.style }]}>
             {
                 props.children
             }

@@ -39,3 +39,27 @@ export const GET_REPOSITORIES = gql`
     }
   }
 `;
+
+export const GET_ALL_REPOSITORIES = gql`
+  query GetAllRepositories  {
+    repositories (orderBy: RATING_AVERAGE) {
+        edges {
+          node {
+            id
+        fullName
+        createdAt
+        ratingAverage
+        ownerName
+        ownerAvatarUrl
+        forksCount
+        stargazersCount
+        fullName
+        description
+        language
+        reviewCount
+        ratingAverage
+          }
+        }
+      }
+  }
+`;
