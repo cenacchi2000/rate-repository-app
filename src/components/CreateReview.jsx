@@ -26,15 +26,14 @@ export default function CreateReview() {
         else if (!rating) {
             setRatingBorderColor(true);
         }
-        else {
-            // alert(typeof rating)
+        else { 
             createReview({ variables: { repositoryName: repositoryOwnerName, ownerName: repositoryName, rating: parseInt(rating), text: review } })
                 .then(res => {
                     if (res) {
                         history.push("/");
                     }
                 })
-                .catch(error => console.log(error.message));
+                .catch(error => alert(error.message));
         }
     };
 

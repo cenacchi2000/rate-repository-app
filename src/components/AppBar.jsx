@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, StyleSheet, Pressable, ScrollView, Platform } from 'react-native';
 import { Link } from 'react-router-native';
 import MyText from '../Text';
 import useAuthStorage from '../utils/useAuthStorage';
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
     tabStyle: {
         fontSize: 18,
-        fontWeight: "bold",
+        fontWeight: Platform.OS === "ios" ? "bold" : "600",
         color: "white",
         paddingBottom: 20
     }
@@ -32,15 +32,13 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
     let { data, loading, error } = useQuery(AUTHORIZED_USER, {
-        variables:{includeReviews: true}
+        variables: { includeReviews: true }
     });
     const client = useApolloClient();
     const [token, setToken] = useState(null);
     const authStorage = useAuthStorage();
     const history = useHistory();
-    const getAccess = async () => {
-
-        console.log(JSON.stringify(data), "resssssss")
+    const getAccess = async () => { 
         let res = await authStorage.getAccessToken();
         setToken(res);
     };
@@ -68,10 +66,14 @@ const AppBar = () => {
                         :
                         null
                 }
+                {
+                    token &&
+                    <Link to={"/MyReviews"} style={{ marginHorizontal: 10 }} >
+                        <MyText style={styles.tabStyle} >My review</MyText>
+                    </Link>
+                }
 
-                <Link to={"/MyReviews"} style={{ marginHorizontal: 10 }} >
-                    <MyText style={styles.tabStyle} >My review</MyText>
-                </Link>
+
 
 
                 {

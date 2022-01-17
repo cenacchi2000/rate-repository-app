@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import moment from 'moment';
 import React, { useEffect } from 'react';
-import { FlatList, View, StyleSheet, Text } from 'react-native';
+import { FlatList, View, StyleSheet, Text, Platform } from 'react-native';
 import { useLocation } from 'react-router-native';
 import { GET_REPOSITORIES } from '../graphql/queries';
 import useRepositories from '../hooks/useRepositories';
@@ -25,10 +25,10 @@ const _renderReviews = ({ item, index }) => {
         <View key={index} style={{ width: "100%", flexDirection: "row", paddingHorizontal: 10, paddingVertical: 15 }} >
 
             <View style={{ width: 50, height: 50, borderRadius: 50, borderWidth: 2, borderColor: theme.colors.primary, justifyContent: "center", alignItems: 'center' }} >
-                <MyText style={{ color: theme.colors.primary, fontWeight: "bold", fontSize: 18 }} >{item.node.rating}</MyText>
+                <MyText style={{ color: theme.colors.primary, fontWeight: Platform.OS === "ios" ? "bold" : "600", fontSize: 18 }} >{item.node.rating}</MyText>
             </View>
             <View style={{ flex: 1, paddingLeft: 10 }} >
-                <MyText style={{ fontWeight: "bold" }}>{item.node.user.username}</MyText>
+                <MyText style={{ fontWeight: Platform.OS === "ios" ? "bold" : "600" }}>{item.node.user.username}</MyText>
                 <MyText style={{ color: theme.colors.textSecondary, marginTop: 5 }} >{moment(item.node.createdAt).format("DD.MM.YYYY")}</MyText>
                 <MyText style={{ lineHeight: 20, marginTop: 10 }} >{item.node.text}</MyText>
             </View>
@@ -50,6 +50,7 @@ const SingleRepositoryView = () => {
     const _returnKey = (item, index) => {
         return item + index;
     };
+   
     return (
         <View style={{ flex: 1, }} >
 

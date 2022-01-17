@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet,   View } from 'react-native';
+import { Image, Platform, Pressable, StyleSheet,   View } from 'react-native';
 import MyText from '../Text';
 import theme from '../theme';
 import * as Linking from 'expo-linking';
@@ -33,7 +33,7 @@ const Repositoryitem = (props) => {
             <View style={{ flexDirection: "row" }} >
                 <Image style={{ width: 50, height: 50, borderRadius: 4 }} source={{ uri: props.item.ownerAvatarUrl }} />
                 <View style={{ marginLeft: 20 }} >
-                    <MyText style={{ fontSize: 18, fontWeight: "bold", color: theme.colors.textPrimary }} >{props.item.fullName}</MyText>
+                    <MyText style={{ fontSize: 18, fontWeight: Platform.OS === "ios" ? "bold" : "600", color: theme.colors.textPrimary }} >{props.item.fullName}</MyText>
                     <MyText style={{ fontSize: 16, color: theme.colors.textSecondary, marginVertical: 5 }} >{props.item.description}</MyText>
                     <View style={{ flexDirection: "row" }} >
                         <View style={{ backgroundColor: "#0366d6", padding: 5, borderRadius: 4 }} >
@@ -66,7 +66,7 @@ const Repositoryitem = (props) => {
 };
 const styles = StyleSheet.create({
     upText: {
-        fontWeight: "bold", fontSize: 14
+        fontWeight: Platform.OS === "ios" ? "bold" : "600", fontSize: 14
     },
     bottomText: {
         color: theme.colors.textSecondary

@@ -52,7 +52,7 @@ export default function RepositoryList() {
     });
 
     if (loading) return <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} >
-        <ActivityIndicator />
+        <ActivityIndicator  size="large" color="red" />
     </View>;
     if (error) return <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} >
          <Text>{error.message}</Text>

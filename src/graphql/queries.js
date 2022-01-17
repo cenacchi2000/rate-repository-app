@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
  
 export const AUTHORIZED_USER = gql`
-  query getAuthorizedUser($includeReviews: Boolean) {
+  query getAuthorizedUser($includeReviews: Boolean = true) {
     authorizedUser {
       
       reviews @include(if: $includeReviews) {
@@ -11,6 +11,7 @@ export const AUTHORIZED_USER = gql`
             id
             text
             rating
+            repositoryId
             createdAt
             user {
               id
