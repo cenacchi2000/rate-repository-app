@@ -2,7 +2,7 @@ import 'dotenv/config';
 export default {
   "expo": {
     "name": "rate-repository",
-    extra: { env: process.env.ENV, },
+    extra: { env: process.env.APOLLO_URI  },
     "slug": "rate-repository",
     "version": "1.0.0",
     "orientation": "portrait",

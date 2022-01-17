@@ -1,13 +1,32 @@
 import { gql } from '@apollo/client';
 
+ 
 export const AUTHORIZED_USER = gql`
-  query AuthorizedUser {
+  query getAuthorizedUser($includeReviews: Boolean) {
     authorizedUser {
-      id
-      username
+      
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+          cursor
+        }
+        pageInfo {
+           hasNextPage
+        }
+      }
     }
   }
 `;
+
 
 export const GET_REPOSITORIES = gql`
   query GetRepositories ($id: ID!) {
@@ -41,8 +60,8 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_ALL_REPOSITORIES = gql`
-  query GetAllRepositories  {
-    repositories (orderBy: RATING_AVERAGE) {
+  query GetAllRepositories($searchKeyword: String $first: Int $after: String)  {
+    repositories (orderBy: RATING_AVERAGE searchKeyword: $searchKeyword first: $first after: $after) {
         edges {
           node {
             id
@@ -60,6 +79,13 @@ export const GET_ALL_REPOSITORIES = gql`
         ratingAverage
           }
         }
+        pageInfo   {
+          endCursor
+          startCursor
+          hasNextPage
+    
+        }
       }
+      
   }
 `;

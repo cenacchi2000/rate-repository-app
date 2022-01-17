@@ -31,14 +31,16 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-    let { data, loading, error } = useQuery(AUTHORIZED_USER);
+    let { data, loading, error } = useQuery(AUTHORIZED_USER, {
+        variables:{includeReviews: true}
+    });
     const client = useApolloClient();
     const [token, setToken] = useState(null);
     const authStorage = useAuthStorage();
     const history = useHistory();
     const getAccess = async () => {
 
-        // console.log(data, "resssssss")
+        console.log(JSON.stringify(data), "resssssss")
         let res = await authStorage.getAccessToken();
         setToken(res);
     };
@@ -66,6 +68,11 @@ const AppBar = () => {
                         :
                         null
                 }
+
+                <Link to={"/MyReviews"} style={{ marginHorizontal: 10 }} >
+                    <MyText style={styles.tabStyle} >My review</MyText>
+                </Link>
+
 
                 {
                     token ?

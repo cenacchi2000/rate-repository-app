@@ -1,14 +1,16 @@
 import { useQuery } from '@apollo/client';
 import { useState, useEffect } from 'react';
-import { GET_REPOSITORIES } from '../graphql/queries';
+import { GET_ALL_REPOSITORIES, GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = () => {
     const [repositories, setRepositories] = useState();
     const [loading, setLoading] = useState(false);
-    const { data } = useQuery(GET_REPOSITORIES, {
-        variables: { id: "jaredpalmer.formik" },
+    const { data, error } = useQuery(GET_ALL_REPOSITORIES, {
+        variables: {first: 2},
+        fetchPolicy: 'cache-and-network',
     });
     const fetchRepositories = async () => {
+        
         setLoading(true);
 
         // Replace the IP address part with your own IP address!
@@ -18,7 +20,7 @@ const useRepositories = () => {
        
         console.log(JSON.stringify(data))
         setLoading(false);
-        // setRepositories(JSON.stringify(data));
+        setRepositories([...repositories, data]);
     };
 
     useEffect(() => {
