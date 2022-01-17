@@ -62,7 +62,12 @@ const SingleRepositoryView = () => {
 
 
             <View style={styles.separator} />
-           
+            <FlatList
+                data={data.repository.reviews.edges}
+                ItemSeparatorComponent={ItemSeparator}
+                keyExtractor={_returnKey}
+                renderItem={_renderReviews}
+            />
 
         </View>
 
