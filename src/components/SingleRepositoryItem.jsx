@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Platform, Pressable, StyleSheet,   View } from 'react-native';
+import {   Image, Platform, Pressable, StyleSheet,   View } from 'react-native';
 import MyText from '../Text';
 import theme from '../theme';
 import * as Linking from 'expo-linking';
@@ -27,7 +27,8 @@ const SingleRepositoryitem = (props) => {
     };
     
     return (
-        <View style={{padding: 10}} >
+        <View style={{padding: 10,  }} >
+          
             <View style={{ flexDirection: "row" }} >
                 <Image style={{ width: 50, height: 50, borderRadius: 4 }} source={{ uri: props.item.ownerAvatarUrl }} />
                 <View style={{ marginLeft: 20 }} >
@@ -61,6 +62,7 @@ const SingleRepositoryitem = (props) => {
             <Pressable onPress={() => Linking.openURL(props.item.url)} style={{backgroundColor: "#0366d6", height: 50, justifyContent:"center", alignItems:"center", borderRadius:4, marginTop: 20}} >
                 <MyText style={{ color: "white", fontWeight:Platform.OS === "ios" ? "bold" : "600" }}>Open in GitHub</MyText>
             </Pressable>
+            
         </View>
     );
 };

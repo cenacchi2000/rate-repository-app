@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import moment from 'moment';
-import React, { useEffect } from 'react'
+import React, {   } from 'react';
 import { ActivityIndicator, Alert, FlatList, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useHistory } from 'react-router-native';
 import { DELETE_REVIEW } from '../graphql/mutations';

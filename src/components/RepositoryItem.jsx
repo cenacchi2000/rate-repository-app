@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Platform, Pressable, StyleSheet,   View } from 'react-native';
 import MyText from '../Text';
 import theme from '../theme';
-import * as Linking from 'expo-linking';
+ 
 import { useHistory } from 'react-router-native';
 const Repositoryitem = (props) => {
     const history = useHistory();

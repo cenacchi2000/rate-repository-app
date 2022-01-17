@@ -1,13 +1,14 @@
 import { useQuery } from '@apollo/client';
 import moment from 'moment';
-import React, { useEffect } from 'react';
-import { FlatList, View, StyleSheet, Text, Platform } from 'react-native';
+import React, {   } from 'react';
+import { FlatList, View, StyleSheet,  Platform } from 'react-native';
 import { useLocation } from 'react-router-native';
 import { GET_REPOSITORIES } from '../graphql/queries';
-import useRepositories from '../hooks/useRepositories';
+ 
 import MyText from '../Text';
 import theme from '../theme';
 import Repositoryitem from './RepositoryItem';
+import SingleRepositoryitem from './SingleRepositoryItem';
 
 const styles = StyleSheet.create({
     separator: {
@@ -54,7 +55,7 @@ const SingleRepositoryView = () => {
     return (
         <View style={{ flex: 1, }} >
 
-            <Repositoryitem
+            <SingleRepositoryitem
                 item={data.repository}
             />
 
